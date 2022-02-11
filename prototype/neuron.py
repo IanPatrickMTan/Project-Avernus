@@ -15,7 +15,7 @@ class neuron:
         self.refractory = False
 
     def evolve(self, inputs):
-        self.potential -= self.cation * self.potential
+        self.potential -= self.cation
         if not self.refractory:
             self.potential += self.anion * self.potential
             self.potential += np.sum(inputs * self.weights) / self.synapseQuantity
