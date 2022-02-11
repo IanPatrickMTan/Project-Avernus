@@ -1,9 +1,9 @@
-from neuron import neuron
+from neuron import Neuron
 import numpy as np
 import matplotlib.pyplot as plt
 from random import uniform
 print('Now simulating full sending of 0.3 strength input')
-n = neuron(np.array([1]), 0, 0.1, 0.1, 2, 0.1)
+n = Neuron(np.array([1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(1000):
@@ -14,7 +14,7 @@ plt.plot(range(1000), outputs)
 print('Now showing results of full sending of 0.3 strength input')
 plt.show()
 print('Now simulating equally spread out 30 iteration long 0.3 strength input stimulation every 100 iterations')
-n = neuron(np.array([1]), 0, 0.1, 0.1, 2, 0.1)
+n = Neuron(np.array([1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(1000):
@@ -25,7 +25,7 @@ plt.plot(range(1000), outputs)
 print('Now showing results of equally spread out 30 iteration long 0.3 strength input stimulation every 100 iterations')
 plt.show()
 print('Now simulating random strength stimulation')
-n = neuron(np.array([1]), 0, 0.1, 0.1, 2, 0.1)
+n = Neuron(np.array([1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(1000):
@@ -36,7 +36,7 @@ plt.plot(range(1000), outputs)
 print('Now showing results of random strength stimulation')
 plt.show()
 print('Now simulating inhibitory stimulation')
-n = neuron(np.array([-1]), 0, 0.1, 0.1, 2, 0.1)
+n = Neuron(np.array([-1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(1000):
@@ -47,7 +47,7 @@ plt.plot(range(1000), outputs)
 print('Now showing results of inhibitory stimulation')
 plt.show()
 print('Now commencing simulation of mixed stimulation')
-n = neuron(np.array([1]), 0, 0.1, 0.1, 2, 0.1)
+n = Neuron(np.array([1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(199):
