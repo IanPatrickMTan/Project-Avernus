@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class neuron:
+class Neuron:
 
 
     def __init__(self, weights, potential, cation, anion, depolarizationThreshold, refractoryThreshold):
@@ -19,10 +19,11 @@ class neuron:
         if not self.refractory:
             self.potential += self.anion * self.potential
             self.potential += np.sum(inputs * self.weights) / self.synapseQuantity
-            self.potential = self.potential * (self.potential > 0)
         if self.refractory == False and self.potential >= self.depolarizationThreshold:
             print('\nRefractory period has started\n')
             self.refractory = True
         if self.refractory == True and self.potential <= self.refractoryThreshold:
             print('\nRefractory period has ended\n')
             self.refractory = False
+        if self.potential < 0:
+            self.potential = self.potential * (self.potential > 0)
