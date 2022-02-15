@@ -8,7 +8,7 @@ import numpy as np
 class Neuron:
 
 
-    def __init__(self, weights, potential, cation, anion, depolarizationThreshold, refractoryThreshold):
+    def __init__(self, weights, potential, cation, anion, depolarizationThreshold, refractoryThreshold, velocityDecay):
         self.weights = weights
         self.potential = potential
         self.cation = cation
@@ -18,10 +18,11 @@ class Neuron:
         self.synapseQuantity = len(weights)
         self.refractory = False
         self.cationInflux = 0
+        self.velocityDecay = velocityDecay
 
     def evolve(self, inputs):
         # cationInflux is the amount of cations that flowed in this iteration, it carries a fraction of the previous iteration's influx with a bit added decided by the cation parameter and the potential of the neuron
-        self.cationInflux = self.cationInflux * 0.6 + self.cation * self.potential
+        self.cationInflux = self.cationInflux * self.velocityDecay + self.cation * self.potential
         self.potential -= self.cationInflux
         # anionInflux is the amount of anions that flowed in this iteration and is decided by the sum of the input weight products along with a bit more that's dependent on the neuron's potential
         if not self.refractory:
