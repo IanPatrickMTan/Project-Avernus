@@ -18,7 +18,7 @@ n = Neuron(np.array([1]), 0, 0.1, 0.1, 2, 0)
 n.potential
 outputs = []
 for x in range(1000):
-    n.evolve(np.array([((x % 100) > 70) * 0.3]))
+    n.evolve(np.array([((x % 100) > 95) * 0.3]))
     print(n.potential)
     outputs.append(n.potential)
 plt.plot(range(1000), outputs)
