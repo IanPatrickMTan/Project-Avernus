@@ -19,6 +19,11 @@ class Network
         self.cationIn = self.cationIn * self.velDec + self.action * self.potentials
         self.potentials -= self.cationIn
 
-        depoling = np.where(absRefract)
-        anionIn = np.sum(inputs[depoling] * self.weights[depoling]) / len(self.weights[0]) + self.anion * self.potentials[depoling]
-        self.potentials[np.where(absRefract and )]
+        depoling = np.where(not absRefract)
+        notDepoling = np.where(absRefract)
+        anionIn = np.sum(inputs[depoling] * self.weights[depoling], axis=1) / len(self.weights[0]) + self.anion * self.potentials[depoling]
+        excited = np.where(self.potentials[depoling] + anionIn > 0)
+        self.potentials[depoling][excited] += anionIn[excited]
+        
+        absRefract[np.where(self.potentials[depoling] <= self.refractThresh)] = True
+        absRefract[np.where(self.potentials[notDepoling] <= self.depolThresh)] = False
