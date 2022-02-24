@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Network
+class Network:
 
 
     def __init__(self, weights, potentials, cation, anion, depolThresh, refractThresh, velDec):
@@ -16,14 +16,14 @@ class Network
         self.cationIn = np.zeros(len(weights[0]))
 
     def evolve(self, inputs):
-        self.cationIn = self.cationIn * self.velDec + self.action * self.potentials
+        self.cationIn = self.cationIn * self.velDec + self.cation * self.potentials
         self.potentials -= self.cationIn
 
-        depoling = np.where(not absRefract)
-        notDepoling = np.where(absRefract)
-        anionIn = np.sum(inputs[depoling] * self.weights[depoling], axis=1) / len(self.weights[0]) + self.anion * self.potentials[depoling]
+        depoling = np.where(~self.absRefract)[0]
+        notDepoling = np.where(self.absRefract)[0]
+        anionIn = self.weights[depoling] @ inputs / len(self.weights[0]) + self.anion * self.potentials[depoling]
         excited = np.where(self.potentials[depoling] + anionIn > 0)
-        self.potentials[depoling][excited] += anionIn[excited]
+        self.potentials[depoling[excited]] += anionIn[excited]
         
-        absRefract[np.where(self.potentials[depoling] <= self.refractThresh)] = True
-        absRefract[np.where(self.potentials[notDepoling] <= self.depolThresh)] = False
+        self.absRefract[np.where(self.potentials[depoling] >= self.depolThresh)] = True
+        self.absRefract[np.where(self.potentials[notDepoling] <= self.refractThresh)] = False
